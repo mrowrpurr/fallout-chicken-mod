@@ -17,7 +17,7 @@ procedure damage_p_proc;
 
 /////////////////////////////////////////////
 
-#define PID_PINKCHIK            (16777701)
+#define PID_PINKCHIK            (16777700)
 #define PinkChik_Ptr            party_member_obj(PID_PINKCHIK)
 #define PinkChik_In_Party       (PinkChik_Ptr != 0)
 
