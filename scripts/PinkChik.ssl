@@ -1,0 +1,93 @@
+#include "..\headers\define.h"
+
+#define NAME SCRIPT_PINKCHIK
+
+#include "..\headers\command.h"
+
+procedure start;
+procedure map_enter_p_proc;
+procedure critter_p_proc;
+procedure description_p_proc;
+procedure look_at_p_proc;
+procedure pickup_p_proc;
+procedure talk_p_proc;
+procedure destroy_p_proc;
+procedure use_skill_on_p_proc;
+procedure damage_p_proc;
+
+/////////////////////////////////////////////
+
+#define PID_PINKCHIK            (16777701)
+#define PinkChik_Ptr            party_member_obj(PID_PINKCHIK)
+#define PinkChik_In_Party       (PinkChik_Ptr != 0)
+
+#define LVAR_DIALOGUE_TOGGLE_1  (0)
+#define LVAR_DIALOGUE_TOGGLE_2  (1)
+#define LVAR_DIALOGUE_TOGGLE_3  (2)
+#define LVAR_DIALOGUE_TOGGLE_4  (3)
+#define LVAR_FOLLOW_DISTANCE    (4)
+#define LVAR_WAITING            (5)
+#define LVAR_TEAM               (6)
+
+procedure start begin
+    if not is_loading_game then begin
+        display_msg("Chicken loaded."); // This displays a lot, it's not working the way that I think it does...
+        arm_obj(self_obj, PID_SHOTGUN, 1, 0, 1) // Give the chicken a shotgun!
+    end
+end
+
+procedure map_enter_p_proc begin
+end
+
+procedure critter_p_proc begin
+    if PinkChik_In_Party then begin
+        party_member_follow_dude
+    end
+end
+
+procedure look_at_p_proc begin
+	script_overrides;
+	if PinkChik_In_Party then begin
+        display_msg("The chicken is still looking at you...");
+    end else begin
+	    display_msg("You look at the chicken and it looks back at you, peering deeply into your eyes and your mind. Maybe you made a mistake...");
+        party_add_self;
+	end
+end
+
+procedure description_p_proc begin
+end
+
+procedure pickup_p_proc begin
+end
+
+procedure use_skill_on_p_proc begin
+end
+
+procedure damage_p_proc begin
+end
+
+procedure destroy_p_proc begin
+end
+
+procedure dialogue_end begin
+    // Nothing, just ends.
+end
+
+procedure dialogue_exit_attempt_response begin
+    Reply(102);
+    NOption(103, dialogue_end, 1);
+end
+
+procedure dialogue_start begin
+    Reply(100);
+    NOption(101, dialogue_exit_attempt_response, 1);
+end
+
+procedure talk_p_proc begin
+   start_dialogue(self_obj, neutral_fidget);
+   gsay_start;
+   call dialogue_start;
+   gsay_end;
+   end_dialogue;
+end
