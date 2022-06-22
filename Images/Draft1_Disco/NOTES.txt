@@ -1,0 +1,16 @@
+https://stackoverflow.com/a/12278644
+
+
+NORTHEAST
+	0,0,0,0  0,90,0,90  90,25,90,0  90,65,90,90
+
+for png in *.png; do magick "$png" -matte  +distort Perspective '0,0,0,0  0,90,0,90  90,25,90,0  90,65,90,90' "NEW.$png"; done
+
+
+Shitty SE
+
+for png in *.png; do magick "$png" -matte  +distort Perspective '7,40 4,30   4,124 4,123   85,122 100,123   85,2 100,30' "NEW.$png"; done
+
+SW wrong but don't care
+
+for png in *.png; do magick "$png" -matte  +distort Perspective '7,40 4,30   4,124 4,123   85,122 100,123   0,0,0,0' "NEW.$png"; done
