@@ -37,7 +37,7 @@ procedure drop_p_proc begin
     variable new_critter_ptr;
     script_overrides;
     new_critter_ptr := critter_attempt_placement(create_object_sid(PID_VAULT_13_FEMALE, 0, 0, SCRIPT_KTSMOKE), dude_tile, elevation(dude_obj));
-    add_obj_to_inven(new_critter_ptr, PID_ALIEN_LASER_PISTOL);
+    add_obj_to_inven(new_critter_ptr, create_object(PID_ALIEN_LASER_PISTOL, 0, 0));
     rm_obj_from_inven(dude_obj, obj_carrying_pid_obj(dude_obj, PID_EASTER_EGG));
 end
 
@@ -58,13 +58,14 @@ procedure dialogue_start begin
 end
 
 procedure use_p_proc begin
-    dialogue_target_ptr = self_obj;
     if self_pid == PID_EASTER_EGG then begin
         display_msg("Ok, gonna make an invisible critter to talk to!");
         dialogue_target_ptr := create_object_sid(PID_VAULT_13_FEMALE, 0, 0, SCRIPT_KTSMOKE);
+//        add_obj_to_inven(dialogue_target_ptr, create_object(PID_HOLY_HAND_GRENADE, 0, 0));
         critter_attempt_placement(dialogue_target_ptr, dude_tile, elevation(dude_obj));
 //        set_obj_visibility(dialogue_target_ptr, 0); // TODO try 'false'
-//        add_obj_to_inven(dialogue_target_ptr, PID_HOLY_HAND_GRENADE);
+    end else begin
+        dialogue_target_ptr = self_obj;
     end
 //    start_dialogue(dialogue_target_ptr, neutral_fidget);
 //    gsay_start;
@@ -75,6 +76,8 @@ end
 
 procedure talk_p_proc begin
     // Currently the same as use_p_proc but we'll have slightly different dialogue with the Chicken -vs- with the Egg
+    add_obj_to_inven(self_obj, create_object(PID_HOLY_HAND_GRENADE, 0, 0));
+    add_obj_to_inven(self_obj, create_object(PID_NAVCOM_PARTS, 0, 0));
     start_dialogue(self_obj, neutral_fidget);
     gsay_start;
     call dialogue_start;

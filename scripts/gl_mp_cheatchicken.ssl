@@ -32,9 +32,8 @@ procedure start begin
         end
 
         // Allow bartering with Vault 13 female (and will switch with NFLYNN later too...)
-        critter_flags_offset   := 0x002C;
-        existing_critter_flags := get_proto_data(PID_VAULT_13_FEMALE, critter_flags_offset);
-        set_proto_data(PID_VAULT_13_FEMALE, critter_flags_offset, existing_critter_flags bwand CFLG_BARTER);
+        existing_critter_flags := get_proto_data(PID_VAULT_13_FEMALE, PROTO_CR_FLAGS);
+        set_proto_data(PID_VAULT_13_FEMALE, PROTO_CR_FLAGS, existing_critter_flags bwor CFLG_BARTER);
 
 //        set_proto_data(PID_VAULT_13_FEMALE, 0x002C, get_proto_data(PID_VAULT_13_FEMALE, CRITTER);
 //    CFLG_BARTER
