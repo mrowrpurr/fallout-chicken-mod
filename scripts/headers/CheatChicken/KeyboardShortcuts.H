@@ -1,3 +1,6 @@
+#ifndef CHEATCHICKEN_KEYBOARDSHORTCUTS_H
+#define CHEATCHICKEN_KEYBOARDSHORTCUTS_H
+
 #include "..\headers\sfall\sfall.h"
 #include "..\headers\sfall\dik.h"
 
@@ -9,3 +12,5 @@ procedure on_keypress begin
 end
 
 #define listen_for_keyboard_shortcuts register_hook_proc(HOOK_KEYPRESS, on_keypress)
+
+#endif
