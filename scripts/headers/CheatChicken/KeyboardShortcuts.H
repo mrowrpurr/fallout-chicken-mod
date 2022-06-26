@@ -3,13 +3,16 @@
 
 #include "..\headers\sfall\sfall.h"
 #include "..\headers\sfall\dik.h"
+#include "..\headers\CheatChicken\Configuration.H"
 
 procedure on_keypress begin
-    variable released := get_sfall_arg_at(0);
+    variable k, v;
+    variable released   := get_sfall_arg_at(0);
     variable dx_keycode := get_sfall_arg_at(1);
-
-    if released and dx_keycode == DIK_K and (key_pressed(DIK_LSHIFT) or key_pressed(DIK_RSHIFT)) then begin
-        message_box("Hello world! You pressed SHIFT+K");
+    variable config     := get_keyboard_shortcut_config;
+    
+    if released and dx_keycode == config.shortcut then begin
+        message_box("You pressed the configured key!");
     end
 end
 
