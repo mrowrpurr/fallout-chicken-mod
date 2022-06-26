@@ -1,29 +1,46 @@
 #include "../headers/define.h"
+#include "../headers/define_extra.h"
 #define NAME "gl_mp_cheatchicken"
 #include "../headers/command.h"
-#include "../headers/sfall/sfall.h"
-#include "../headers/sfall/lib.arrays.h"
 
 procedure start;
 procedure start begin
-    variable ini, key, value;
+    variable file, critter_flags_offset, existing_critter_flags,
+             original_forms, original_walking_form,
+             replacement_idle_form, replacement_walking_form;
 
     if game_loaded then begin
+
+        // All of the Vault 13 woman's forms - Note: we'll later want to be able to swap between these and NFLYNN (when we go to the Cafe of Lost Souls)
+        original_forms := ["NFVREDAA.FRM", "NFVREDAK.FRM", "NFVREDAL.FRM", "NFVREDAN.FRM", "NFVREDAO.FRM", "NFVREDAP.FRM", "NFVREDAQ.FRM", "NFVREDAR.FRM", "NFVREDAS.FRM",
+"NFVREDBA.FR0", "NFVREDBA.FR1", "NFVREDBA.FR2", "NFVREDBA.FR3", "NFVREDBA.FR4", "NFVREDBA.FR5", "NFVREDBB.FR0", "NFVREDBB.FR1", "NFVREDBB.FR2", "NFVREDBB.FR3",
+"NFVREDBB.FR4", "NFVREDBB.FR5", "NFVREDBD.FR0", "NFVREDBD.FR1", "NFVREDBD.FR2", "NFVREDBD.FR3", "NFVREDBD.FR4", "NFVREDBD.FR5", "NFVREDBF.FR0", "NFVREDBF.FR1",
+"NFVREDBF.FR2", "NFVREDBF.FR3", "NFVREDBF.FR4", "NFVREDBF.FR5", "NFVREDBG.FR0", "NFVREDBG.FR1", "NFVREDBG.FR2", "NFVREDBG.FR3", "NFVREDBG.FR4", "NFVREDBG.FR5",
+"NFVREDBI.FR0", "NFVREDBI.FR1", "NFVREDBI.FR2", "NFVREDBI.FR3", "NFVREDBI.FR4", "NFVREDBI.FR5", "NFVREDBL.FR0", "NFVREDBL.FR1", "NFVREDBL.FR2", "NFVREDBL.FR3",
+"NFVREDBL.FR4", "NFVREDBL.FR5", "NFVREDBM.FR0", "NFVREDBM.FR1", "NFVREDBM.FR2", "NFVREDBM.FR3", "NFVREDBM.FR4", "NFVREDBM.FR5", "NFVREDBO.FR0", "NFVREDBO.FR1",
+"NFVREDBO.FR2", "NFVREDBO.FR3", "NFVREDBO.FR4", "NFVREDBO.FR5", "NFVREDBP.FR0", "NFVREDBP.FR1", "NFVREDBP.FR2", "NFVREDBP.FR3", "NFVREDBP.FR4", "NFVREDBP.FR5",
+"NFVREDCH.FRM", "NFVREDCJ.FRM", "NFVREDRA.FRM", "NFVREDRB.FRM", "NFVREDRD.FRM", "NFVREDRF.FRM", "NFVREDRG.FRM", "NFVREDRI.FRM", "NFVREDRL.FRM", "NFVREDRM.FRM",
+"NFVREDRO.FRM", "NFVREDRP.FRM"];
+
+        // Replace the walking form
+        original_walking_form := "NFVREDAB.FRM";
+        file := fs_copy("art\\critters\\" + original_walking_form, "art\\critters\\\CheatChicken\\WALK.frm");
+
+        // Replace all other forms with the idle
+        foreach file in original_forms begin
+            file := fs_copy("art\\critters\\" + file, "art\\critters\\\CheatChicken\\IDLE.frm");
+        end
+
+        // Allow bartering with Vault 13 female (and will switch with NFLYNN later too...)
+        critter_flags_offset   := 0x002C;
+        existing_critter_flags := get_proto_data(PID_VAULT_13_FEMALE, critter_flags_offset);
+        set_proto_data(PID_VAULT_13_FEMALE, critter_flags_offset, existing_critter_flags bwand CFLG_BARTER);
+
+//        set_proto_data(PID_VAULT_13_FEMALE, 0x002C, get_proto_data(PID_VAULT_13_FEMALE, CRITTER);
+//    CFLG_BARTER
+
+        // Add the egg to the player's inventory
         // SCRIPT_KTSMOKE is the script we stole for the Cheat Chicken and Easter Egg.
         add_obj_to_inven(dude_obj, create_object_sid(PID_EASTER_EGG, 0, 0, SCRIPT_KTSMOKE));
-
-        ini := get_ini_section("CheatChicken.ini", "Test");
-        foreach key: value in ini begin
-            display_msg("Key: " + key + " Value: " + value);
-        end
     end
 end
-
-//        variable file;
-//        file = fs_copy("art\\critters\\MAANTTAA.frm", "art\\critters\\MY_IDLE.frm");
-//        file = fs_copy("art\\critters\\MAANTTAB.frm", "art\\critters\\MY_WALK.frm");
-//        display_msg("This should work this time.");
-//        variable tile := Future_Distance_From_Dude(17);
-//        variable ant := create_object(PID_GIANT_ANT, tile, 0);
-//        critter_attempt_placement(ant, tile, 0);
-//        display_msg("Placed an ant.");
