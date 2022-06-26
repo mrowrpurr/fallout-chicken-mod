@@ -9,6 +9,7 @@
 procedure start;
 procedure look_at_p_proc;
 procedure description_p_proc;
+procedure use_p_proc;
 
 procedure start begin
     if self_pid == PID_EASTER_EGG then begin
@@ -26,6 +27,28 @@ end
 procedure description_p_proc begin
     script_overrides;
     display_msg("DESCRIBE EGG");
+end
+
+procedure dialogue_end begin
+    // Nothing, just ends.
+end
+
+procedure dialogue_exit_attempt_response begin
+    Reply(102);
+    NOption(103, dialogue_end, 1);
+end
+
+procedure dialogue_start begin
+    Reply(100);
+    NOption(101, dialogue_exit_attempt_response, 1);
+end
+
+procedure use_p_proc begin
+   start_dialogue(self_obj, neutral_fidget);
+   gsay_start;
+   call dialogue_start;
+   gsay_end;
+   end_dialogue;
 end
 
 /* ORIGINAL KTSMOKE CODE BELOW */
