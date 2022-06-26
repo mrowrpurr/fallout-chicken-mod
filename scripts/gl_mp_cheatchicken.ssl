@@ -1,0 +1,29 @@
+#include "../headers/define.h"
+#define NAME "gl_mp_cheatchicken"
+#include "../headers/command.h"
+#include "../headers/sfall/sfall.h"
+#include "../headers/sfall/lib.arrays.h"
+
+procedure start;
+procedure start begin
+    variable ini, key, value;
+
+    if game_loaded then begin
+        // SCRIPT_KTSMOKE is the script we stole for the Cheat Chicken and Easter Egg.
+        add_obj_to_inven(dude_obj, create_object_sid(PID_EASTER_EGG, 0, 0, SCRIPT_KTSMOKE));
+
+        ini := get_ini_section("CheatChicken.ini", "Test");
+        foreach key: value in ini begin
+            display_msg("Key: " + key + " Value: " + value);
+        end
+    end
+end
+
+//        variable file;
+//        file = fs_copy("art\\critters\\MAANTTAA.frm", "art\\critters\\MY_IDLE.frm");
+//        file = fs_copy("art\\critters\\MAANTTAB.frm", "art\\critters\\MY_WALK.frm");
+//        display_msg("This should work this time.");
+//        variable tile := Future_Distance_From_Dude(17);
+//        variable ant := create_object(PID_GIANT_ANT, tile, 0);
+//        critter_attempt_placement(ant, tile, 0);
+//        display_msg("Placed an ant.");

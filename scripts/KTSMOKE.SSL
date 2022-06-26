@@ -1,0 +1,42 @@
+/*
+    KTSMOKE is a small script which has been stolen and resused by The Cheat Chicken. Bukaw!
+*/
+
+#include "..\headers\define.h"
+#define NAME SCRIPT_KTSMOKE
+#include "..\headers\command.h"
+
+procedure start;
+procedure look_at_p_proc;
+procedure description_p_proc;
+
+procedure start begin
+    if self_pid == PID_EASTER_EGG then begin
+        display_msg("This is the easter egg");
+    end else begin
+        display_msg("This is not the easter egg");
+    end
+end
+
+procedure look_at_p_proc begin
+    script_overrides;
+    display_msg("LOOK AT EGG");
+end
+
+procedure description_p_proc begin
+    script_overrides;
+    display_msg("DESCRIBE EGG");
+end
+
+/* ORIGINAL KTSMOKE CODE BELOW */
+
+#define LVAR_herebefore (0)
+
+procedure spatial_p_proc;
+
+procedure spatial_p_proc begin
+   if ( (source_obj == dude_obj) and (local_var(LVAR_herebefore) == 0) ) then begin
+      inc_local_var(LVAR_herebefore);
+      display_msg(mstr(100));
+   end
+end
