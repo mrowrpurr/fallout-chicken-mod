@@ -1,4 +1,9 @@
-{100}{}{Hello there!}
-{101}{}{S'up, peace. I'm out.}
-{102}{}{No, please don't leave...}
-{103}{}{Sorry, but I'm busy. Got things to do!}
+{100}{}{[Exit]}
+{101}{}{EGG INTRO}
+{102}{}{WTF IS THIS}
+{103}{}{EGG INSTRUCTIONS}
+{104}{}{CRACK OPEN}
+{105}{}{SET DOWN}
+{106}{}{PUT AWAY FOR LATER}
+{107}{}{EGG UNHATCHED}
+{108}{}{EGG UNHATCHED REPLY}
