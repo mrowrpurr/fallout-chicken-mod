@@ -3,6 +3,15 @@
 #define NAME "gl_mp_cheatchicken"
 #include "../headers/command.h"
 
+//int     arg0 - the number of the standard script handler (see define.h)
+//Obj     arg1 - the object that owns this handler (self_obj)
+//Obj     arg2 - the object that called this handler (source_obj, can be 0)
+//
+//int     ret0 - pass -1 to cancel the execution of the handler
+procedure on_std_proc begin
+    // Hmm. If you can't register this for 1 specific object then I don't want to use it. This would be SO chatty, I can always refactor to use this.
+end
+
 procedure start;
 procedure start begin
     variable file, critter_flags_offset, existing_critter_flags,
@@ -10,6 +19,8 @@ procedure start begin
              replacement_idle_form, replacement_walking_form;
 
     if game_loaded then begin
+
+        register_hook_proc(HOOK_STDPROCEDURE, on_std_proc);
 
         // All of the Vault 13 woman's forms - Note: we'll later want to be able to swap between these and NFLYNN (when we go to the Cafe of Lost Souls)
         original_forms := ["NFVREDAA.FRM", "NFVREDAK.FRM", "NFVREDAL.FRM", "NFVREDAN.FRM", "NFVREDAO.FRM", "NFVREDAP.FRM", "NFVREDAQ.FRM", "NFVREDAR.FRM", "NFVREDAS.FRM",

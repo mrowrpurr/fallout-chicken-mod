@@ -6,123 +6,130 @@
 #define NAME SCRIPT_KTSMOKE
 #include "..\headers\command.h"
 
-procedure start;
-procedure critter_p_proc;
-procedure look_at_p_proc;
-procedure description_p_proc;
-procedure drop_p_proc;
-procedure use_p_proc;
-procedure talk_p_proc;
+/*
+    TODO - consider using StdProcedure from global and DON'T USE THIS SCRIPT AT ALL :)
+           the only thing that we'd need then is critter_p_proc to follow, in which case
+           we can use a global script timer instead.
+*/
 
-procedure boom;
-
-variable begin
-    named_handlers_configured := 0;
-    dialogue_target_ptr := 0;
-end
-
-procedure start begin
-    if not named_handlers_configured then begin
-        AddNamedHandler("kaboom", boom);
-    end
-    if game_loaded then begin
-        if self_pid == PID_EASTER_EGG then begin
-            display_msg("This is the easter egg");
-        end else begin
-            display_msg("This is not the easter egg");
-        end
-    end
-end
-
-procedure critter_p_proc begin
-    if self_pid == PID_VAULT_13_FEMALE then begin
-//        display_msg("FOLLOW");
-        animate_move_to_tile(Future_Distance_From_Dude(2));
-    end else begin
-//        display_msg("NO FOLLOW");
-    end
-end
-
-procedure look_at_p_proc begin
-    script_overrides;
-    display_msg("LOOK AT EGG");
-end
-
-procedure description_p_proc begin
-    script_overrides;
-    display_msg("DESCRIBE EGG");
-end
-
-procedure drop_p_proc begin
-    variable new_critter_ptr;
-    script_overrides;
-    new_critter_ptr := critter_attempt_placement(create_object_sid(PID_VAULT_13_FEMALE, 0, 0, SCRIPT_KTSMOKE), dude_tile, elevation(dude_obj));
-    add_obj_to_inven(new_critter_ptr, create_object(PID_ALIEN_LASER_PISTOL, 0, 0));
-    rm_obj_from_inven(dude_obj, obj_carrying_pid_obj(dude_obj, PID_EASTER_EGG));
-end
-
-procedure dialogue_end begin
-    if self_pid == PID_EASTER_EGG then begin
-        destroy_object(dialogue_target_ptr);
-    end
-end
-
-procedure dialogue_exit_attempt_response begin
-    Reply(102);
-    NOption(103, dialogue_end, 1);
-end
-
-procedure dialogue_start begin
-    Reply(100);
-    NOption(101, dialogue_exit_attempt_response, 1);
-end
-
-procedure use_p_proc begin
-
-
-    if self_pid == PID_EASTER_EGG then begin
-        display_msg("Ok, gonna make an invisible critter to talk to!");
-        dialogue_target_ptr := create_object_sid(PID_VAULT_13_FEMALE, 0, 0, SCRIPT_KTSMOKE);
-//        add_obj_to_inven(dialogue_target_ptr, create_object(PID_HOLY_HAND_GRENADE, 0, 0));
-        set_critter_stat(dialogue_target_ptr, STAT_max_hit_points, 1);
-        set_critter_stat(dialogue_target_ptr, STAT_current_hp, 1);
-        set_critter_stat(dialogue_target_ptr, STAT_st, 1);
-        set_critter_stat(dialogue_target_ptr, STAT_en, 1);
-        set_critter_stat(dialogue_target_ptr, STAT_gender, 0);
-
-        party_add(dialogue_target_ptr);
-//        party_member_obj(PID_)
-
-        critter_attempt_placement(dialogue_target_ptr, dude_tile, elevation(dude_obj));
-//        set_obj_visibility(dialogue_target_ptr, 0); // TODO try 'false'
-    end else begin
-        dialogue_target_ptr = self_obj;
-    end
-//    start_dialogue(dialogue_target_ptr, neutral_fidget);
-//    gsay_start;
-//    call dialogue_start;
-//    gsay_end;
-//    end_dialogue;
-end
-
-procedure talk_p_proc begin
-    display_msg("Calling boom function via signal");
-    //sfall_func0("boom");
-    SignalNamed("kaboom");
-
-    // Currently the same as use_p_proc but we'll have slightly different dialogue with the Chicken -vs- with the Egg
-//    add_obj_to_inven(self_obj, create_object(PID_HOLY_HAND_GRENADE, 0, 0));
-//    add_obj_to_inven(self_obj, create_object(PID_NAVCOM_PARTS, 0, 0));
-//    start_dialogue(self_obj, neutral_fidget);
-//    gsay_start;
-//    call dialogue_start;
-//    gsay_end;
-//    end_dialogue;
-end
-
-procedure boom begin
-    explosion(self_tile, self_elevation, 10);
-end
+//procedure start;
+//procedure critter_p_proc;
+//procedure look_at_p_proc;
+//procedure description_p_proc;
+//procedure drop_p_proc;
+//procedure use_p_proc;
+//procedure talk_p_proc;
+//
+//procedure boom;
+//
+//variable begin
+//    named_handlers_configured := 0;
+//    dialogue_target_ptr := 0;
+//end
+//
+//procedure start begin
+//    if not named_handlers_configured then begin
+//        AddNamedHandler("kaboom", boom);
+//    end
+//    if game_loaded then begin
+//        if self_pid == PID_EASTER_EGG then begin
+//            display_msg("This is the easter egg");
+//        end else begin
+//            display_msg("This is not the easter egg");
+//        end
+//    end
+//end
+//
+//procedure critter_p_proc begin
+//    if self_pid == PID_VAULT_13_FEMALE then begin
+////        display_msg("FOLLOW");
+//        animate_move_to_tile(Future_Distance_From_Dude(2));
+//    end else begin
+////        display_msg("NO FOLLOW");
+//    end
+//end
+//
+//procedure look_at_p_proc begin
+//    script_overrides;
+//    display_msg("LOOK AT EGG");
+//end
+//
+//procedure description_p_proc begin
+//    script_overrides;
+//    display_msg("DESCRIBE EGG");
+//end
+//
+//procedure drop_p_proc begin
+//    variable new_critter_ptr;
+//    script_overrides;
+//    new_critter_ptr := critter_attempt_placement(create_object_sid(PID_VAULT_13_FEMALE, 0, 0, SCRIPT_KTSMOKE), dude_tile, elevation(dude_obj));
+//    add_obj_to_inven(new_critter_ptr, create_object(PID_ALIEN_LASER_PISTOL, 0, 0));
+//    rm_obj_from_inven(dude_obj, obj_carrying_pid_obj(dude_obj, PID_EASTER_EGG));
+//end
+//
+//procedure dialogue_end begin
+//    if self_pid == PID_EASTER_EGG then begin
+//        destroy_object(dialogue_target_ptr);
+//    end
+//end
+//
+//procedure dialogue_exit_attempt_response begin
+//    Reply(102);
+//    NOption(103, dialogue_end, 1);
+//end
+//
+//procedure dialogue_start begin
+//    Reply(100);
+//    NOption(101, dialogue_exit_attempt_response, 1);
+//end
+//
+//procedure use_p_proc begin
+//
+//
+//    if self_pid == PID_EASTER_EGG then begin
+//        display_msg("Ok, gonna make an invisible critter to talk to!");
+//        dialogue_target_ptr := create_object_sid(PID_VAULT_13_FEMALE, 0, 0, SCRIPT_KTSMOKE);
+////        add_obj_to_inven(dialogue_target_ptr, create_object(PID_HOLY_HAND_GRENADE, 0, 0));
+//        set_critter_stat(dialogue_target_ptr, STAT_max_hit_points, 1);
+//        set_critter_stat(dialogue_target_ptr, STAT_current_hp, 1);
+//        set_critter_stat(dialogue_target_ptr, STAT_st, 1);
+//        set_critter_stat(dialogue_target_ptr, STAT_en, 1);
+//        set_critter_stat(dialogue_target_ptr, STAT_gender, 0);
+//
+//        party_add(dialogue_target_ptr);
+////        party_member_obj(PID_)
+//
+//        critter_attempt_placement(dialogue_target_ptr, dude_tile, elevation(dude_obj));
+////        set_obj_visibility(dialogue_target_ptr, 0); // TODO try 'false'
+//    end else begin
+//        dialogue_target_ptr = self_obj;
+//    end
+////    start_dialogue(dialogue_target_ptr, neutral_fidget);
+////    gsay_start;
+////    call dialogue_start;
+////    gsay_end;
+////    end_dialogue;
+//end
+//
+//procedure talk_p_proc begin
+//    display_msg("Calling boom function via signal");
+//    //sfall_func0("boom");
+//    SignalNamed("kaboom");
+//
+//    // Currently the same as use_p_proc but we'll have slightly different dialogue with the Chicken -vs- with the Egg
+////    add_obj_to_inven(self_obj, create_object(PID_HOLY_HAND_GRENADE, 0, 0));
+////    add_obj_to_inven(self_obj, create_object(PID_NAVCOM_PARTS, 0, 0));
+////    start_dialogue(self_obj, neutral_fidget);
+////    gsay_start;
+////    call dialogue_start;
+////    gsay_end;
+////    end_dialogue;
+//
+//end
+//
+//procedure boom begin
+//    explosion(self_tile, self_elevation, 10);
+//end
 
 /* ORIGINAL KTSMOKE CODE BELOW */
 
