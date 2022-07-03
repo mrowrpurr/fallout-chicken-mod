@@ -6,7 +6,6 @@
 #include "..\headers\CheatChicken\Configuration.H"
 
 procedure on_keypress begin
-    variable k, v;
     variable released   := get_sfall_arg_at(0);
     variable dx_keycode := get_sfall_arg_at(1);
     variable config     := get_keyboard_shortcut_config;
