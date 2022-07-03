@@ -1,0 +1,34 @@
+// Include extensions for the KTSMOKE script
+// to hijack this script and use it for
+// the Cheat Chicken (both the Egg and the Chicken).
+#include "CheatChicken/KTSMOKE_EXT.h"
+
+/*
+	Copyright 1998-2003 Interplay Entertainment Corp.  All rights reserved.
+*/
+
+#include "..\headers\define.h"
+
+#define NAME                    SCRIPT_KTSMOKE
+#include "..\headers\command.h"
+
+procedure spatial_p_proc;
+procedure start;
+
+#define LVAR_herebefore (0)
+
+// Comment out the original `start` procedure.
+// We include out own `start` via KTSMOKE_EXT.h
+// procedure start begin
+// end
+
+procedure spatial_p_proc begin
+   // Added this line which immediately returns from this procedure
+   // if the script is attached to the cheat chicken or egg.
+   if is_script_attached_to_cheat_chicken_or_egg then return;
+
+   if ( (source_obj == dude_obj) and (local_var(LVAR_herebefore) == 0) ) then begin
+      inc_local_var(LVAR_herebefore);
+      display_msg(mstr(100));
+   end
+end

@@ -1,0 +1,5 @@
+#include "CheatChicken/Startup.h"
+
+procedure start begin
+    if game_loaded then call cheatchicken_start;
+end
