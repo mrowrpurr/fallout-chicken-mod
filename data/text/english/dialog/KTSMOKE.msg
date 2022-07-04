@@ -1,9 +1,2 @@
-{100}{}{[Exit]}
-{101}{}{EGG INTRO}
-{102}{}{WTF IS THIS}
-{103}{}{EGG INSTRUCTIONS}
-{104}{}{CRACK OPEN}
-{105}{}{SET DOWN}
-{106}{}{PUT AWAY FOR LATER}
-{107}{}{EGG UNHATCHED}
-{108}{}{EGG UNHATCHED REPLY}
+{100}{}{You see: a mysterious chicken egg.}
+{101}{}{Something something description.}

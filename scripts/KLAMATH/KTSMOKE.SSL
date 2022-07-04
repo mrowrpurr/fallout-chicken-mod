@@ -1,19 +1,11 @@
+#include "..\headers\define.h"
+#define NAME                    SCRIPT_KTSMOKE
+#include "..\headers\command.h"
+
 // Include extensions for the KTSMOKE script
 // to hijack this script and use it for
 // the Cheat Chicken (both the Egg and the Chicken).
 #include "CheatChicken/KTSMOKE_EXT.h"
-
-/*
-	Copyright 1998-2003 Interplay Entertainment Corp.  All rights reserved.
-*/
-
-#include "..\headers\define.h"
-
-#define NAME                    SCRIPT_KTSMOKE
-#include "..\headers\command.h"
-
-procedure spatial_p_proc;
-procedure start;
 
 #define LVAR_herebefore (0)
 

@@ -1,7 +1,7 @@
 # Egg
 
 - [x] Add Egg to inventory
-- [ ] Egg look_at and description
+- [x] Egg look_at and description
 
 # Replacement Character
 

@@ -22,6 +22,7 @@ procedure load_data begin
         is_first_run = false;
     else begin
         data = {};
+        fix_array(data);
         save_array(DATA_SAVE_KEY, data);
     end
 end
