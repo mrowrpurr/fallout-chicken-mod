@@ -1,10 +1,14 @@
+#include "define.h"
+
 #include "sfall/sfall.h"
 #include "sfall/lib.arrays.h"
 #include "sfall/lib.strings.h"
 
 #include "CheatChicken/Debug.h"
+#include "CheatChicken/Player.h"
 #include "CheatChicken/Configuration.h"
 #include "CheatChicken/Data.h"
+#include "CheatChicken/Egg.h"
 #include "CheatChicken/Startup.h"
 
 procedure start begin
