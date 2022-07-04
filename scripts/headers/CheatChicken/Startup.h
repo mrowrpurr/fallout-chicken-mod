@@ -4,9 +4,10 @@
     Cheat Chicken mod startup
 */
 
-#include "CheatChicken/Configuration.h"
-#include "CheatChicken/SaveData.h"
+variable ready = false;
 
-procedure cheatchicken_start begin
-    
+procedure startup begin
+    call load_config;
+    call load_data;
+    ready = true;
 end
