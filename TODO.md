@@ -1,4 +1,5 @@
 - [ ] `#define data cheatchicken_data` so it can be exported & same with the `config` :)
+- [ ] `#include "CheatChicken.h"` which assumes access to `cheatchicken_data` and `cheatchicken_config` but is otherwise basically a public/external API
 
 # Egg
 
