@@ -1,3 +1,5 @@
+- [ ] `#define data cheatchicken_data` so it can be exported & same with the `config` :)
+
 # Egg
 
 - [x] Add Egg to inventory
