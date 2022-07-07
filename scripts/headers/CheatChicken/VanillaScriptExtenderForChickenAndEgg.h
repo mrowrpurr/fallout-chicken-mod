@@ -6,8 +6,8 @@
     Cheat Chicken is *evil* and hijacks this script :)
 */
 
-#define DEBUG_NAME "CheatChicken KTSMOKE"
-#include "Debug.h"
+#include "MrowrPurr/Debug.h"
+#include "MrowrPurr/Display.h"
 
 #include "CheatChicken/Messages.h"
 

@@ -8,7 +8,7 @@ end
 
 procedure give_player_egg begin
     if not player_has_egg then begin
-        debug2(
+        debug2f(
             "Giving player egg... PID %s SCRIPT %s",
             config.Egg.item_pid,
             config.Egg.script_id
@@ -19,6 +19,6 @@ procedure give_player_egg begin
             atoi(config.Egg.script_id)
         );
         add_obj_to_inven(player_obj, data.egg_obj);
-        debug1("Gave egg to player! (%s)", data.egg_obj);
+        debug1f("Gave egg to player! (%s)", data.egg_obj);
     end
 end

@@ -1,4 +1,8 @@
 #include "define.h"
+#define NAME "CheatChicken"
+
+#include "MrowrPurr/Debug.h"
+#include "MrowrPurr/Display.h"
 
 #include "sfall/sfall.h"
 #include "sfall/lib.arrays.h"
@@ -7,7 +11,6 @@
 // Is everything loaded?
 variable ready = false;
 
-#include "CheatChicken/Debug.h"
 #include "CheatChicken/Messages.h"
 #include "CheatChicken/Player.h"
 #include "CheatChicken/Configuration.h"
@@ -17,5 +20,9 @@ variable ready = false;
 #include "CheatChicken/Startup.h"
 
 procedure start begin
+    display_msg("START");
+    display("HELLO FROM CHEAT CHICKEN");
+    debug("HELLO FROM CHEAT CHICKEN DEBUG");
     if game_loaded then call startup;
 end
+
