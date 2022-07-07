@@ -1,18 +1,20 @@
 #include "..\headers\define.h"
-#define NAME                    SCRIPT_KTSMOKE
+#define NAME SCRIPT_KTSMOKE
+// From Scripts.lst
+//   #define SCRIPT_KTSMOKE          (740)   // KtSmoke.int     ; displays message about smoke smell in Duntons
 #include "..\headers\command.h"
 
 // Include extensions for the KTSMOKE script
 // to hijack this script and use it for
 // the Cheat Chicken (both the Egg and the Chicken).
-#include "CheatChicken/KTSMOKE_EXT.h"
-
-#define LVAR_herebefore (0)
+#include "CheatChicken/VanillaScriptExtenderForChickenAndEgg.h"
 
 // Comment out the original `start` procedure.
 // We include out own `start` via KTSMOKE_EXT.h
 // procedure start begin
 // end
+
+#define LVAR_herebefore (0)
 
 procedure spatial_p_proc begin
    // Added this line which immediately returns from this procedure
