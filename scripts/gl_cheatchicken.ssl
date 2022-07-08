@@ -18,13 +18,12 @@ variable config;
 variable data;
 
 procedure load_config begin
-    variable section_names = get_ini_sections(INI_FILE);
-    variable section_name;
-
     config = {};
     fix_array(config);
     cheatchicken_config = config;
 
+    variable section_names = get_ini_sections(INI_FILE);
+    variable section_name;
     foreach section_name in section_names begin
         variable section = get_ini_section(INI_FILE, section_name);
         fix_array(section);
