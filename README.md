@@ -4,4 +4,4 @@ _Nothing to see here yet!_
 
 > Adds a helpful little chicken to the game as a companion
 
-![Pink Chick](Images/PinkChicken.png)
+![Pink Chick](Images/Chickens/PinkChicken.png)
