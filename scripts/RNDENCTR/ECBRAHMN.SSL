@@ -6,11 +6,10 @@
 
 #define NAME SCRIPT_ECBRAHMN
 
+procedure original_start;
+
 #include "CheatChicken/EggOrChickenScript.h"
 
-procedure start begin
-   display_msg("Egg: I AM ALIVE!");
-   // if not is_chicken_or_egg
-   //    critter_add_trait(self_obj,TRAIT_OBJECT,OBJECT_TEAM_NUM,TEAM_RND_BRAHMIN);
-   // end
+procedure original_start begin
+   critter_add_trait(self_obj,TRAIT_OBJECT,OBJECT_TEAM_NUM,TEAM_RND_BRAHMIN);
 end
