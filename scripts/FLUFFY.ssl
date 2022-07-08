@@ -1,7 +1,0 @@
-#include "define.h"
-#include "command.h"
-
-procedure critter_p_proc begin
-    animate_move_to_tile(Future_Distance_From_Dude(2));
-end
-
