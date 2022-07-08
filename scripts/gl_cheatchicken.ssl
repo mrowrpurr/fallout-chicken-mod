@@ -2,38 +2,81 @@
     Main script which powers: The Cheat Chicken *bukaw!*
 */
 
-#define INI_FILE "CheatChicken.ini"
-#define config   cheatchicken_config
-
-#include "sfall/sfall.h"
-#include "define.h"
+// variable cheatchicken_config;
+// variable cheatchicken_data;
 
 variable cheatchicken_config;
+variable cheatchicken_data;
 
-procedure load_config begin
-    config = {};
-    fix_array(config);
+export variable cheatchicken_config_exported;
+export variable cheatchicken_data_exported;
 
+#define INI_FILE            "CheatChicken.ini"
+// #define config              cheatchicken_config
+// #define data                cheatchicken_data
+#define DATA_SAVE_KEY       "cheatchicken_data"
+#define MSG_EGG_DESCRIPTION 100
+#define get_msg(id) message_str(cheatchicken_config.Egg.script_id, id)
+
+#include "define.h"
+#include "sfall/sfall.h"
+#include "sfall/lib.arrays.h"
+
+procedure load_cheatchicken_config begin
     variable section_names = get_ini_sections(INI_FILE);
     variable section_name;
+
+    cheatchicken_config = {};
+    fix_array(cheatchicken_config);
+
     foreach section_name in section_names begin
         variable section = get_ini_section(INI_FILE, section_name);
         fix_array(section);
-        config[section_name] = section;
+        cheatchicken_config[section_name] = section;
     end
 
-    config.Egg.pid = atoi(config.Egg.pid);
-    config.Egg.script_id = atoi(config.Egg.script_id);
+    cheatchicken_config.Egg.pid = atoi(cheatchicken_config.Egg.pid);
+    cheatchicken_config.Egg.script_id = atoi(cheatchicken_config.Egg.script_id);
+end
+
+procedure load_cheatchicken_data begin
+    cheatchicken_data = load_array(DATA_SAVE_KEY);
+    display_msg("LOAD ARRAY RETURNED: " + cheatchicken_data);
+    if not cheatchicken_data then begin
+        cheatchicken_data = {};
+        fix_array(cheatchicken_data);
+        save_array(DATA_SAVE_KEY, DATA_SAVE_KEY);
+        display_msg("DATA is now... " + cheatchicken_data);
+    end
 end
 
 procedure give_egg_to_player begin
-    variable egg = create_object_sid(config.Egg.pid, 0, 0, config.Egg.script_id);
-    add_obj_to_inven(dude_obj, egg);
+    set_proto_data(cheatchicken_config.Egg.pid, 0x4, 23101);
+    cheatchicken_data.egg_obj = create_object_sid(cheatchicken_config.Egg.pid, 0, 0, cheatchicken_config.Egg.script_id);
+    add_obj_to_inven(dude_obj, cheatchicken_data.egg_obj);
+end
+
+procedure hook_description begin
+    variable obj = get_sfall_arg;
+    display_msg("DESC HOOK: " + debug_array_str(cheatchicken_data));
+    if obj == cheatchicken_data.egg_obj then
+        set_sfall_return(get_string_pointer(get_msg(MSG_EGG_DESCRIPTION)));
+end
+
+procedure hooks_register begin
+    register_hook_proc(HOOK_DESCRIPTIONOBJ, hook_description);
 end
 
 procedure start begin
     if game_loaded then begin
-        call load_config;
+        call load_cheatchicken_config;
+        call load_cheatchicken_data;
+        call hooks_register;
         call give_egg_to_player;
+
+        cheatchicken_config_exported = cheatchicken_config;
+        cheatchicken_data_exported = cheatchicken_data;
+        display_msg("EXPORT CONFIG: " + cheatchicken_config_exported);
+        display_msg("EXPORT DATA: " + cheatchicken_data_exported);
     end
 end
