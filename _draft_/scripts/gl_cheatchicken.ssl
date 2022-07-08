@@ -1,8 +1,20 @@
+#define NAME          "CheatChicken"
+#define CONFIG_VAR    cheatchicken_config
+#define CONFIG_EXPORT export
+#define CONFIG_FILE   "CheatChicken.ini"
+#define DATA_VAR      cheatchicken_data
+#define DATA_EXPORT   export
+#define DATA_SAVE_KEY "cheatchicken_data"
+
+#define data   DATA_VAR
+#define config CONFIG_VAR
+
 #include "define.h"
-#define NAME "CheatChicken"
 
 #include "MrowrPurr/Debug.h"
 #include "MrowrPurr/Display.h"
+#include "MrowrPurr/ModConfig.h"
+#include "MrowrPurr/ModData.h"
 
 #include "sfall/sfall.h"
 #include "sfall/lib.arrays.h"
@@ -13,16 +25,13 @@ variable ready = false;
 
 #include "CheatChicken/Messages.h"
 #include "CheatChicken/Player.h"
-#include "CheatChicken/Configuration.h"
+// #include "CheatChicken/Configuration.h"
 #include "CheatChicken/Data.h"
 #include "CheatChicken/Egg.h"
 #include "CheatChicken/Hooks.h"
 #include "CheatChicken/Startup.h"
 
 procedure start begin
-    display_msg("START");
-    display("HELLO FROM CHEAT CHICKEN");
-    debug("HELLO FROM CHEAT CHICKEN DEBUG");
     if game_loaded then call startup;
 end
 
