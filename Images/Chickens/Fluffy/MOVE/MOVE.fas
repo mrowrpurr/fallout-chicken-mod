@@ -1,9 +1,9 @@
-ADD_FRAMES, 0, small.*.png
-ADD_FRAMES, 1, small.*.png
-ADD_FRAMES, 2, small.*.png
-ADD_FRAMES, 3, small.*.png
-ADD_FRAMES, 4, small.*.png
-ADD_FRAMES, 5, small.*.png
+ADD_FRAMES, 0, NE\*.png
+ADD_FRAMES, 1, E\*.png
+ADD_FRAMES, 2, SE\*.png
+ADD_FRAMES, 3, SW\*.png
+ADD_FRAMES, 4, W\*.png
+ADD_FRAMES, 5, NW\*.png
 SET_OPTION,AUTOCUTTING,1
 SET_FRAMES_OFFSET, 0,-6,6
 SET_FRAMES_OFFSET, 1,-6,6
