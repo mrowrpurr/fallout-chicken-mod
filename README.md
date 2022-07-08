@@ -1,4 +1,6 @@
-# Pink Chick 🐤
+_Nothing to see here yet!_
+
+# The Cheat Chicken 🐤
 
 > Adds a helpful little chicken to the game as a companion
 
