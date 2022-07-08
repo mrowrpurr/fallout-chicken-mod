@@ -1,0 +1,26 @@
+#define NAME       "gl_cheatchicken"
+#define INI_CONFIG "CheatChicken.ini"
+
+#include "sfall/sfall.h"
+#include "FormattedDebug.h"
+
+variable cheatchicken_config;
+
+procedure load_config begin
+    cheatchicken_config = {};
+    fix_array(cheatchicken_config);
+
+    variable section, sections = get_ini_sections(INI_CONFIG);
+    foreach section in sections begin
+        cheatchicken_config[section] = get_ini_section(INI_CONFIG, section);
+        fix_array(cheatchicken_config[section]);
+    end
+end
+
+procedure start begin
+    if game_loaded then begin
+        call load_config;
+        debug1("The egg PID is:", cheatchicken_config.Egg.pid);
+    end
+end
+
