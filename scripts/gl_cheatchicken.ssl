@@ -1,0 +1,39 @@
+/*
+    Main script which powers: The Cheat Chicken *bukaw!*
+*/
+
+#define INI_FILE "CheatChicken.ini"
+#define config   cheatchicken_config
+
+#include "sfall/sfall.h"
+#include "define.h"
+
+variable cheatchicken_config;
+
+procedure load_config begin
+    config = {};
+    fix_array(config);
+
+    variable section_names = get_ini_sections(INI_FILE);
+    variable section_name;
+    foreach section_name in section_names begin
+        variable section = get_ini_section(INI_FILE, section_name);
+        fix_array(section);
+        config[section_name] = section;
+    end
+
+    config.Egg.pid = atoi(config.Egg.pid);
+    config.Egg.script_id = atoi(config.Egg.script_id);
+end
+
+procedure give_egg_to_player begin
+    variable egg = create_object_sid(config.Egg.pid, 0, 0, config.Egg.script_id);
+    add_obj_to_inven(dude_obj, egg);
+end
+
+procedure start begin
+    if game_loaded then begin
+        call load_config;
+        call give_egg_to_player;
+    end
+end

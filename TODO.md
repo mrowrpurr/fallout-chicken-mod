@@ -1,18 +1,10 @@
-- [ ] `#define data cheatchicken_data` so it can be exported & same with the `config` :)
-- [ ] `#include "CheatChicken.h"` which assumes access to `cheatchicken_data` and `cheatchicken_config` but is otherwise basically a public/external API
+# Cheat Chicken TODO 🐤
 
-# Egg
+## Egg 🐣
 
-- [x] Add Egg to inventory
-- [x] Egg look_at and description
+- [x] Give Egg to Player
+- [ ] Give the Egg a name
+- [ ] Give the Egg a description
+- [ ] On Drop, place chicken (_and remove egg_)
 
-# Replacement Character
 
-- [ ] Can spawn a replacement character
-- [ ] Replacement character's animations are all replaced with chicken idle/move
-- [ ] Replacement character not selected if on one of the replacement characters' home maps
-- [ ] Replacement character swaps when entering a home map (including swapping animations)
-
-# No Kids
-
-- [ ] All kids turn into 6-9 pink chickens (configurable)
