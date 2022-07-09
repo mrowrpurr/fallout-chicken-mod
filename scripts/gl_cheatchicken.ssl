@@ -69,3 +69,4 @@ procedure start begin
         call give_egg_to_player;
     end
 end
+

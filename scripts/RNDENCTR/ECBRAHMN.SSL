@@ -10,6 +10,8 @@ procedure original_start;
 
 #include "CheatChicken/EggOrChickenScript.h"
 
+// This is the original content of `procedure start` for `ECBRAHMN`.
+// It is called whenever `start` is called when the script is NOT attached to an Egg or Chicken. 
 procedure original_start begin
-   critter_add_trait(self_obj,TRAIT_OBJECT,OBJECT_TEAM_NUM,TEAM_RND_BRAHMIN);
+   critter_add_trait(self_obj, TRAIT_OBJECT, OBJECT_TEAM_NUM, TEAM_RND_BRAHMIN);
 end
