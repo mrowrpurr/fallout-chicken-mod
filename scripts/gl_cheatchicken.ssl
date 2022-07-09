@@ -12,8 +12,8 @@ export variable cheatchicken_data;
 #include "sfall/sfall.h"
 #include "sfall/lib.arrays.h"
 #include "FormattedDisplay.h"
-
 #include "CheatChicken/Messages.h"
+#include "CheatChicken/Scripts.h"
 
 variable config;
 variable data;
@@ -30,10 +30,6 @@ procedure load_config begin
         fix_array(section);
         config[section_name] = section;
     end
-
-    // Consider always using atoi instead?
-    config.Egg.pid = atoi(config.Egg.pid);
-    config.Egg.script_id = atoi(config.Egg.script_id);
 end
 
 procedure load_data begin
@@ -47,8 +43,8 @@ procedure load_data begin
 end
 
 procedure give_egg_to_player begin
-    set_proto_data(config.Egg.pid, 0x4, 23101);
-    data.egg_obj = create_object_sid(config.Egg.pid, 0, 0, config.Egg.script_id);
+    set_proto_data(atoi(config.Egg.pid), 0x4, 23101);
+    data.egg_obj = create_object_sid(atoi(config.Egg.pid), 0, 0, get_script_id(config.Egg.script));
     add_obj_to_inven(dude_obj, data.egg_obj);
 end
 

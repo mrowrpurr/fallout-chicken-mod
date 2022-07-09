@@ -10,6 +10,7 @@
 #include "sfall/lib.strings.h"
 #include "CheatChicken.h"
 #include "CheatChicken/Messages.h"
+#include "CheatChicken/Scripts.h"
 #include "Fallout1in2.h"
 #include "FormattedDebug.h"
 #include "FormattedDisplay.h"
@@ -19,6 +20,11 @@ import variable cheatchicken_data;
 
 variable config;
 variable data;
+
+procedure map_enter_p_proc begin
+    if self_obj != data.egg_obj and self_obj != data.chicken_obj then
+        call original_map_enter_p_proc;
+end
 
 procedure start begin
     config = cheatchicken_config;
@@ -64,17 +70,17 @@ procedure spawn_chicken begin
                 // Update the idle animation to be the chicken.
                 // Note: although we do not use the `file` variable, it is required
                 // (fs_copy won't work if you don't save the results into a variable)
-                // variable file = fs_copy(character_idle_frm, chicken_idle_frm);
+                variable file = fs_copy(character_idle_frm, chicken_idle_frm);
 
                 // // // Update all moving animations
-                // variable frm;
-                // foreach frm in character_moving_frms begin
-                //     file = fs_copy(sprintf("art\\critters\\%s", frm), chicken_move_frm);
-                // end
+                variable frm;
+                foreach frm in character_moving_frms begin
+                    file = fs_copy(sprintf("art\\critters\\%s", frm), chicken_move_frm);
+                end
 
                 // Spawn the character
                 data.chicken_name = chicken_info.name; // TODO read from .ini so it's not in the save game & can be changed
-                data.chicken_obj = create_object_sid(atoi(character_info.pid), 0, 0, atoi(chicken_info.script_id));
+                data.chicken_obj = create_object_sid(atoi(character_info.pid), 0, 0, get_script_id(chicken_info.script));
                 critter_attempt_placement(data.chicken_obj, dude_tile, dude_elevation);
                 destroy_object(data.egg_obj);
                 data.egg_obj = 0;

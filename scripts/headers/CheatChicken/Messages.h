@@ -1,4 +1,8 @@
-#define get_msg(id) message_str(config.Egg.script_id, id)
+#pragma once
+
+#include "CheatChicken/Scripts.h"
+
+#define get_msg(id) message_str(get_script_id(config.Egg.script), id)
 
 #define MSG_EGG_DESCRIPTION     100
 #define MSG_EGG_NAME            101

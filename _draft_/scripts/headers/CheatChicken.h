@@ -1,9 +1,11 @@
 /*
     Cheat Chicken header with functionality available to any scripts.
 
-    The internal Cheat Chicken scripts do NOT use this.
-
-    This is intended for scripters and is currently only used by
-    the KTSMOKE script (which Cheat Chicken abusively hijacks)
+    Used by CheatChicken scripts but also available for use in any script.
 */
 
+import variable __cheatchicken_data;
+import variable __cheatchicken_config;
+
+procedure cheatchicken_setup begin
+end
