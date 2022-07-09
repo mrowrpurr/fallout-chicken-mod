@@ -10,6 +10,7 @@
 #include "sfall/lib.strings.h"
 #include "CheatChicken.h"
 #include "CheatChicken/Messages.h"
+#include "Fallout1in2.h"
 #include "FormattedDebug.h"
 #include "FormattedDisplay.h"
 
@@ -26,7 +27,7 @@ end
 
 procedure critter_p_proc begin
     if self_obj == data.chicken_obj then
-        animate_move_to_tile(Future_Distance_From_Dude(2));
+        animate_move_obj_to_tile(self_obj, Future_Distance_From_Dude(2), ANIMATE_WALK);
 end
 
 procedure look_at_p_proc begin
@@ -42,42 +43,47 @@ end
 procedure spawn_chicken begin
     if not self_obj == data.egg_obj then return;
 
+    variable fallout_et_tu = is_running_ettu;
     variable config_section_name, config_section;
     foreach config_section_name: config_section in config begin
         if string_starts_with(config_section_name, "ReplacementCharacter:") then begin
-            // Found the replacement character - TODO check to see we're not on its home map(s)
+            
+            // Found a replacement character - TODO check to see we're not on its home map(s)
             variable character_info = config_section;
 
-            // Replace the .frm(s) of the character with our configured .frm(s) for this egg's chicken
-            variable chicken_name          = config.Egg.hatches,
-                     chicken_info          = config["Chicken:" + chicken_name],
-                     chicken_idle_frm      = chicken_info.idle_animation,
-                     chicken_move_frm      = chicken_info.moving_animation,
-                     character_idle_frm    = sprintf("art\\critters\\%s", character_info.idle_animation),
-                     character_moving_frms = string_split(character_info.moving_animations, ",");
+            if (not fallout_et_tu) or (fallout_et_tu and character_info.game == "ettu") then begin
 
-            // Update the idle animation to be the chicken.
-            // Note: although we do not use the `file` variable, it is required
-            // (fs_copy won't work if you don't save the results into a variable)
-            variable file = fs_copy(character_idle_frm, chicken_idle_frm);
+                // Replace the .frm(s) of the character with our configured .frm(s) for this egg's chicken
+                variable chicken_name          = config.Egg.hatches,
+                        chicken_info          = config["Chicken:" + chicken_name],
+                        chicken_idle_frm      = chicken_info.idle_animation,
+                        chicken_move_frm      = chicken_info.moving_animation,
+                        character_idle_frm    = sprintf("art\\critters\\%s", character_info.idle_animation),
+                        character_moving_frms = string_split(character_info.moving_animations, ",");
 
-            // // Update all moving animations
-            variable frm;
-            foreach frm in character_moving_frms begin
-                file = fs_copy(sprintf("art\\critters\\%s", frm), chicken_move_frm);
+                // Update the idle animation to be the chicken.
+                // Note: although we do not use the `file` variable, it is required
+                // (fs_copy won't work if you don't save the results into a variable)
+                // variable file = fs_copy(character_idle_frm, chicken_idle_frm);
+
+                // // // Update all moving animations
+                // variable frm;
+                // foreach frm in character_moving_frms begin
+                //     file = fs_copy(sprintf("art\\critters\\%s", frm), chicken_move_frm);
+                // end
+
+                // Spawn the character
+                data.chicken_name = chicken_info.name; // TODO read from .ini so it's not in the save game & can be changed
+                data.chicken_obj = create_object_sid(atoi(character_info.pid), 0, 0, atoi(chicken_info.script_id));
+                critter_attempt_placement(data.chicken_obj, dude_tile, dude_elevation);
+                destroy_object(data.egg_obj);
+                data.egg_obj = 0;
+                
+                // Add them to your party (this allows them to follow you from map to map)
+                party_add(data.chicken_obj);
+
+                break;
             end
-
-            // Spawn the character
-            data.chicken_name = chicken_info.name; // TODO read from .ini so it's not in the save game & can be changed
-            data.chicken_obj = create_object_sid(atoi(character_info.pid), 0, 0, atoi(chicken_info.script_id));
-            critter_attempt_placement(data.chicken_obj, dude_tile, dude_elevation);
-            destroy_object(data.egg_obj);
-            data.egg_obj = 0;
-            
-            // Add them to your party (this allows them to follow you from map to map)
-            party_add(data.chicken_obj);
-
-            break;
         end
     end
 end
