@@ -26,11 +26,6 @@ procedure map_enter_p_proc begin
         call original_map_enter_p_proc;
 end
 
-procedure start begin
-    config = cheatchicken_config;
-    data   = cheatchicken_data;
-end
-
 procedure critter_p_proc begin
     if self_obj == data.chicken_obj then
         animate_move_obj_to_tile(self_obj, Future_Distance_From_Dude(2), ANIMATE_WALK);
@@ -60,7 +55,7 @@ procedure spawn_chicken begin
             if (not fallout_et_tu) or (fallout_et_tu and character_info.game == "ettu") then begin
 
                 // Replace the .frm(s) of the character with our configured .frm(s) for this egg's chicken
-                variable chicken_name          = config.Egg.hatches,
+                variable chicken_name         = config.Egg.hatches,
                         chicken_info          = config["Chicken:" + chicken_name],
                         chicken_idle_frm      = chicken_info.idle_animation,
                         chicken_move_frm      = chicken_info.moving_animation,
@@ -72,21 +67,27 @@ procedure spawn_chicken begin
                 // (fs_copy won't work if you don't save the results into a variable)
                 variable file = fs_copy(character_idle_frm, chicken_idle_frm);
 
-                // // // Update all moving animations
+                // // // // Update all moving animations
                 variable frm;
                 foreach frm in character_moving_frms begin
                     file = fs_copy(sprintf("art\\critters\\%s", frm), chicken_move_frm);
                 end
 
+                // TODO read from .ini so it's not in the save game & can be changed
+                data.chicken_name   = chicken_info.name;
+
                 // Spawn the character
-                data.chicken_name = chicken_info.name; // TODO read from .ini so it's not in the save game & can be changed
                 data.chicken_obj = create_object_sid(atoi(character_info.pid), 0, 0, get_script_id(chicken_info.script));
-                critter_attempt_placement(data.chicken_obj, dude_tile, dude_elevation);
-                destroy_object(data.egg_obj);
-                data.egg_obj = 0;
                 
                 // Add them to your party (this allows them to follow you from map to map)
                 party_add(data.chicken_obj);
+
+                // Add to the map
+                critter_attempt_placement(data.chicken_obj, dude_tile, dude_elevation);
+                
+                // Destroy the egg
+                destroy_object(data.egg_obj);
+                data.egg_obj = 0;
 
                 break;
             end
@@ -98,4 +99,34 @@ procedure drop_p_proc begin
     script_overrides;
     call spawn_chicken;
 end
+
+// {106}{}{Hey, sup?}
+// {107}{}{Nothin. Peace!}
+
+procedure dialogue_end begin
+    // Nothing, end dialogue
+end
+
+procedure dialogue_begin begin
+    Reply(106);
+    NOption(107, dialogue_end, 4);
+end
+
+procedure talk_p_proc begin
+    if self_obj == data.chicken_obj then begin
+        variable dialogue_script_id = get_script_id(config.Dialogue.script);
+        variable mood_index = 4; // TODO make a #define set for moods
+        start_gdialog(dialogue_script_id, self_obj, mood_index, -1, -1);
+        gSay_Start;
+        call dialogue_begin;
+        gSay_End;
+        end_dialogue;
+    end
+end
+
+procedure start begin
+    config = cheatchicken_config;
+    data   = cheatchicken_data;
+end
+
 
