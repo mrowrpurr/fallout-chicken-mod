@@ -30,11 +30,18 @@ procedure critter_p_proc begin
 end
 
 procedure look_at_p_proc begin
-    script_overrides;
-    display_msg(get_msg(MSG_YOU_SEE) + get_msg(MSG_EGG_NAME));
+    if self_obj == data.egg_obj then begin
+        script_overrides;
+        display_msg(get_msg(MSG_YOU_SEE) + get_msg(MSG_EGG_NAME));
+    end else if self_obj == data.chicken_obj then begin
+        script_overrides;
+        display_msg(get_msg(MSG_YOU_SEE) + data.chicken_name);
+    end
 end
 
 procedure spawn_chicken begin
+    if not self_obj == data.egg_obj then return;
+
     variable config_section_name, config_section;
     foreach config_section_name: config_section in config begin
         if string_starts_with(config_section_name, "ReplacementCharacter:") then begin
@@ -54,15 +61,18 @@ procedure spawn_chicken begin
             // (fs_copy won't work if you don't save the results into a variable)
             variable file = fs_copy(character_idle_frm, chicken_idle_frm);
 
-            // Update all moving animations
+            // // Update all moving animations
             variable frm;
             foreach frm in character_moving_frms begin
                 file = fs_copy(sprintf("art\\critters\\%s", frm), chicken_move_frm);
             end
 
             // Spawn the character
-            data.chicken_obj = create_object_sid(atoi(character_info.pid), 0, 0, atoi(character_info.script_id));
+            data.chicken_name = chicken_info.name; // TODO read from .ini so it's not in the save game & can be changed
+            data.chicken_obj = create_object_sid(atoi(character_info.pid), 0, 0, atoi(chicken_info.script_id));
             critter_attempt_placement(data.chicken_obj, dude_tile, dude_elevation);
+            destroy_object(data.egg_obj);
+            data.egg_obj = 0;
             
             // Add them to your party (this allows them to follow you from map to map)
             party_add(data.chicken_obj);
@@ -76,6 +86,4 @@ procedure drop_p_proc begin
     script_overrides;
     call spawn_chicken;
 end
-
-
 
