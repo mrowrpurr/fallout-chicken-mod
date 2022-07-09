@@ -18,9 +18,12 @@
 import variable cheatchicken_config;
 import variable cheatchicken_data;
 
+variable is_started;
+
 variable config;
 variable data;
 
+#include "CheatChicken/DialogueActions.h"
 #include "CheatChicken/Dialogue.h"
 
 procedure map_enter_p_proc begin
@@ -108,8 +111,12 @@ procedure talk_p_proc begin
 end
 
 procedure start begin
-    config = cheatchicken_config;
-    data   = cheatchicken_data;
+    if not is_started then begin
+        is_started = true;
+        config = cheatchicken_config;
+        data   = cheatchicken_data;
+        call setup_dialogue_actions;
+    end
 end
 
 
