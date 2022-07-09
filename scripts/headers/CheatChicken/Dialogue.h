@@ -11,34 +11,45 @@ procedure __dialogue_end begin
 end
 
 procedure __dialogue_option_one begin
-    display_msg("OPTION 1!");
+    display1("option:", __dialogue_current_option_name_list[0]);
 end
 
 procedure __dialogue_option_two begin
+    display1("option:", __dialogue_current_option_name_list[1]);
 end
 
 procedure __dialogue_option_three begin
-
+    display1("option:", __dialogue_current_option_name_list[2]);
 end
 
 procedure __dialogue_option_four begin
-
+    display1("option:", __dialogue_current_option_name_list[3]);
 end
 
 procedure __dialogue_option_five begin
-
+    display1("option:", __dialogue_current_option_name_list[4]);
 end
 
 procedure __dialogue_option_six begin
-
+    display1("option:", __dialogue_current_option_name_list[5]);
 end
 
 procedure __dialogue_begin begin
-   variable reply_id = atoi(config.Messages[__dialogue_current_reply_name]);
-   Reply(reply_id);
+    variable reply_id = atoi(config.Messages[__dialogue_current_reply_name]);
+    Reply(reply_id);
 
-    // Option 1
-   NOption(atoi(config.Messages[__dialogue_current_option_name_list[0]]), __dialogue_option_one, DIALOGUE_DEFAULT_IQ_TEST);
+    if len_array(__dialogue_current_option_name_list) > 0 then
+        NOption(atoi(config.Messages[__dialogue_current_option_name_list[0]]), __dialogue_option_two, DIALOGUE_DEFAULT_IQ_TEST);
+    if len_array(__dialogue_current_option_name_list) > 1 then
+        NOption(atoi(config.Messages[__dialogue_current_option_name_list[1]]), __dialogue_option_two, DIALOGUE_DEFAULT_IQ_TEST);
+    if len_array(__dialogue_current_option_name_list) > 2 then
+        NOption(atoi(config.Messages[__dialogue_current_option_name_list[2]]), __dialogue_option_two, DIALOGUE_DEFAULT_IQ_TEST);
+    if len_array(__dialogue_current_option_name_list) > 3 then
+        NOption(atoi(config.Messages[__dialogue_current_option_name_list[3]]), __dialogue_option_two, DIALOGUE_DEFAULT_IQ_TEST);
+    if len_array(__dialogue_current_option_name_list) > 4 then
+        NOption(atoi(config.Messages[__dialogue_current_option_name_list[4]]), __dialogue_option_two, DIALOGUE_DEFAULT_IQ_TEST);
+    if len_array(__dialogue_current_option_name_list) > 5 then
+        NOption(atoi(config.Messages[__dialogue_current_option_name_list[5]]), __dialogue_option_two, DIALOGUE_DEFAULT_IQ_TEST);
 end
 
 procedure dialogue_start(variable scenario) begin
