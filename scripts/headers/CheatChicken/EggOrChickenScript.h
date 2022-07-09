@@ -21,6 +21,8 @@ import variable cheatchicken_data;
 variable config;
 variable data;
 
+#include "CheatChicken/Dialogue.h"
+
 procedure map_enter_p_proc begin
     if self_obj != data.egg_obj and self_obj != data.chicken_obj then
         call original_map_enter_p_proc;
@@ -47,7 +49,7 @@ procedure spawn_chicken begin
     variable fallout_et_tu = is_running_ettu;
     variable config_section_name, config_section;
     foreach config_section_name: config_section in config begin
-        if string_starts_with(config_section_name, "ReplacementCharacter:") then begin
+        if string_starts_with(config_section_name, "ReplacementCharacter_") then begin
             
             // Found a replacement character - TODO check to see we're not on its home map(s)
             variable character_info = config_section;
@@ -56,7 +58,7 @@ procedure spawn_chicken begin
 
                 // Replace the .frm(s) of the character with our configured .frm(s) for this egg's chicken
                 variable chicken_name         = config.Egg.hatches,
-                        chicken_info          = config["Chicken:" + chicken_name],
+                        chicken_info          = config["Chicken_" + chicken_name],
                         chicken_idle_frm      = chicken_info.idle_animation,
                         chicken_move_frm      = chicken_info.moving_animation,
                         character_idle_frm    = sprintf("art\\critters\\%s", character_info.idle_animation),
@@ -100,28 +102,9 @@ procedure drop_p_proc begin
     call spawn_chicken;
 end
 
-// {106}{}{Hey, sup?}
-// {107}{}{Nothin. Peace!}
-
-procedure dialogue_end begin
-    // Nothing, end dialogue
-end
-
-procedure dialogue_begin begin
-    Reply(106);
-    NOption(107, dialogue_end, 4);
-end
-
 procedure talk_p_proc begin
-    if self_obj == data.chicken_obj then begin
-        variable dialogue_script_id = get_script_id(config.Dialogue.script);
-        variable mood_index = 4; // TODO make a #define set for moods
-        start_gdialog(dialogue_script_id, self_obj, mood_index, -1, -1);
-        gSay_Start;
-        call dialogue_begin;
-        gSay_End;
-        end_dialogue;
-    end
+    if self_obj == data.chicken_obj then
+        call dialogue_start("get_items");
 end
 
 procedure start begin
