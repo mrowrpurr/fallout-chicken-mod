@@ -1,3 +1,4 @@
+#include "CheatChicken/Define.h"
 #include "CheatChicken/Startup.h"
 
 procedure start begin
