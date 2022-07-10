@@ -13,5 +13,4 @@
 - [ ] Dialogue!
 - [ ] Trade
 - [ ] Teleport
-
-## Notes
+- [ ] Place NPCs in the world
