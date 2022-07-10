@@ -43,3 +43,43 @@ animate_rotation(atoi(fred_info.rotation));
 //display_msg(GVAR_KILL_EVIL_PLANTS);
 set_global_var(GVAR_KILL_EVIL_PLANTS, 6
 ```
+
+## Characters
+
+### Fallout 1
+
+#### Starting Tiles (v13ent)
+
+
+
+#### NPC Protos
+
+- Purple Robes - 16777228
+- Blue Robes - 16777429
+- Power Armor - 16777341
+- Robo Brain - 16777285
+- Mr Handy - 16777529
+- Doctor - 16777517
+- Green Mohawk Chick - 16777538
+
+### Fallout 2
+
+#### Starting Tiles (artemple)
+
+- 18083
+- 18886
+- 18294
+- 18894
+- 19291
+
+#### NPC Protos
+
+- Green Mohawk Chick - 16777365
+- Scientist - 16777511
+- Mr Handy - 16777388
+- Casino Bouncer Blue - 16777654
+- Casino Bouncer Grey - 16777655
+- Purple Robes - 16777392
+- Upclass Citizen - 16777310
+- Power Armor - 16777406
+- Police Officer - 16777353
