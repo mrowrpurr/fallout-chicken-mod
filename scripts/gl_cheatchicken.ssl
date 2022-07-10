@@ -12,6 +12,7 @@ export variable cheatchicken_data;
 // array_append <--- TODO character_info append to like [ReplacementCharacter_Default]
 
 #include "define.h"
+#include "command.h"
 #include "maps.h"
 #include "sfall/sfall.h"
 #include "sfall/dik.h"
@@ -66,20 +67,14 @@ procedure hooks_register begin
     register_hook_proc(HOOK_DESCRIPTIONOBJ, hook_description);
 end
 
+
+
 procedure start begin
     if game_loaded then begin
-        // variable i;
-        // for i = 0; i <= 48; i++; begin
-        //     mark_on_map(i)
-        // end
         call load_config;
         call load_data;
         call hooks_register;
         call give_egg_to_player;
-
-        // debug(config.ReplacementCharacter_Redhead.moving_animations);
-        // debug(strlen(config.ReplacementCharacter_Redhead.moving_animations));
-        // debug(len_array(string_split(config.ReplacementCharacter_Redhead.moving_animations, ",")));
     end
 end
 
