@@ -13,3 +13,11 @@ end
 
 - Max 6 options displayed
 
+## Misc
+
+```pascal
+Face_Critter(dude_obj, fred);
+
+set_self(fred);
+animate_rotation(atoi(fred_info.rotation));
+```
