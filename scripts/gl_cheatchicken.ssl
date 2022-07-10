@@ -5,13 +5,19 @@
 export variable cheatchicken_config;
 export variable cheatchicken_data;
 
+#define NAME          "gl_cheatchicken"
 #define INI_FILE      "CheatChicken.ini"
 #define DATA_SAVE_KEY "cheatchicken_data"
 
+// array_append <--- TODO character_info append to like [ReplacementCharacter_Default]
+
 #include "define.h"
+#include "maps.h"
 #include "sfall/sfall.h"
+#include "sfall/dik.h"
 #include "sfall/lib.arrays.h"
 #include "FormattedDisplay.h"
+#include "FormattedDebug.h"
 #include "CheatChicken/Messages.h"
 #include "CheatChicken/Scripts.h"
 
@@ -62,6 +68,10 @@ end
 
 procedure start begin
     if game_loaded then begin
+        // variable i;
+        // for i = 0; i <= 48; i++; begin
+        //     mark_on_map(i)
+        // end
         call load_config;
         call load_data;
         call hooks_register;

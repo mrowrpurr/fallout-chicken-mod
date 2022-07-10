@@ -11,3 +11,7 @@
 ## Chicken 🐔
 
 - [ ] Dialogue!
+- [ ] Trade
+- [ ] Teleport
+
+## Notes
