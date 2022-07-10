@@ -1,22 +1,35 @@
 /*
-   Hijacked script for The Cheat Chicken *bukaw!*
-
-   Used to attach to eggs and chickens.
+	Copyright 1998-2003 Interplay Entertainment Corp.  All rights reserved.
 */
 
-#define NAME SCRIPT_ZICLOSED
+/*
+        Name: Den "Out of Bidness" sign
+        Location: Den
+        Description:
 
-#include "define.h"
-#include "command.h"
+        Log:
 
-procedure original_map_enter_p_proc;
+           Created: May 27, 1998
 
-#include "CheatChicken/EggOrChickenScript.h"
+           Updated:
+*/
 
-procedure original_map_enter_p_proc begin
+/* Include Files */
+
+#include "..\headers\define.h"
+
+#define NAME                        SCRIPT_ZICLOSED
+
+#include "..\headers\command.h"
+
+procedure start;
+procedure map_enter_p_proc;
+
+procedure start begin
+end
+
+procedure map_enter_p_proc begin
    if (is_loading_game == false) then begin
       set_obj_visibility(self_obj,false);
    end
 end
-
-

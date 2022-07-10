@@ -1,8 +1,10 @@
 #pragma once
 
-/*
-    Words > Numbers
-*/
+#include "CheatChicken/Scripts.h"
 
-#define MSG_LOOKAT_UNFAMILIAR 100
-#define MSG_DESCRIPTION_UNFAMILIAR 101
+#define get_msg(id) message_str(get_script_id(config.Egg.script), id)
+
+#define MSG_EGG_DESCRIPTION     100
+#define MSG_EGG_NAME            101
+#define MSG_YOU_SEE             102
+#define MSG_CHICKEN_DESCRIPTION 103
