@@ -10,7 +10,9 @@
 
 ## Chicken 🐔
 
-- [ ] Dialogue!
+- [x] Dialogue
+    - [ ] Add `[more options]`and `[previous options]` to cycle thru extra dialogue options
 - [ ] Trade
-- [ ] Teleport
+- [ ] Teleport to cities
 - [ ] Place NPCs in the world
+- [ ] Show and complete or fail quests
