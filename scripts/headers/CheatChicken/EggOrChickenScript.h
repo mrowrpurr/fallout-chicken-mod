@@ -29,6 +29,7 @@ variable data;
 // ADD art_change_fid_num option! unlimited choices/followers. but ONE custom art allowed.
 
 procedure map_enter_p_proc begin
+    // Has to be reset on map enter - set to the name you give to the chicken
     set_scr_name("The Chicken");
 
     if self_obj != data.egg_obj and self_obj != data.chicken_obj then
@@ -73,9 +74,19 @@ procedure spawn_chicken begin
                          chicken_idle_frm      = chicken_info.idle_animation,
                          chicken_move_frm      = chicken_info.moving_animation,
                          character_idle_frm    = sprintf("art\\critters\\%s", character_info.idle_animation),
-                         character_moving_frms = string_split(character_info.moving_animations, ","),
                          character_pid         = atoi(character_info.pid);
 
+                // character_moving_frms = string_split(character_info.moving_animations, ","),
+                variable character_moving_frms = [];
+                variable character_info_keys = array_keys(character_info);
+                variable key;
+                foreach key in character_info_keys begin
+                    if string_starts_with(key, "moving_animations") then begin
+                        // * Merge arr2 on top of the arr1 
+                        call array_append(character_moving_frms, string_split(character_info[key], ","));
+                    end
+                end
+                
                 display1("chicken:", chicken_name);
 
                 // Update the idle animation to be the chicken.
@@ -149,6 +160,9 @@ procedure talk_p_proc begin
 end
 
 procedure start begin
+    // Has to be reset on map enter - set to the name you give to the chicken
+    if self_obj == data.chicken_obj then set_scr_name("The Chicken");
+
     if not is_started then begin
         is_started = true;
         config = cheatchicken_config;

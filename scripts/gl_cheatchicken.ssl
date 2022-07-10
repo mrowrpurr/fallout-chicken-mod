@@ -76,6 +76,10 @@ procedure start begin
         call load_data;
         call hooks_register;
         call give_egg_to_player;
+
+        // debug(config.ReplacementCharacter_Redhead.moving_animations);
+        // debug(strlen(config.ReplacementCharacter_Redhead.moving_animations));
+        // debug(len_array(string_split(config.ReplacementCharacter_Redhead.moving_animations, ",")));
     end
 end
 
