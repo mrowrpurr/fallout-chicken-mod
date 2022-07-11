@@ -1,5 +1,8 @@
 #define DEBUG_NAME "gl_cheatchicken"
 
+#include "define.h"
+#include "command.h"
+
 #include "FormattedDebug.h"
 #include "FormattedDisplay.h"
 
@@ -7,5 +10,5 @@
 #include "CheatChicken/Startup.h"
 
 procedure start begin
-     if game_loaded then call startup;
+    if game_loaded then call startup;
 end

@@ -6,7 +6,7 @@ export variable EXPORTED_CC_CONFIG_VARIABLE
 
 #define INI_CONFIG "CheatChicken.ini"
 
-variable config
+variable config;
 
 procedure load_config begin
     config = IniSettings_LoadIni(INI_CONFIG, {
